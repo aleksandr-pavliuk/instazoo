@@ -29,6 +29,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import ua.org.instazoo.entity.enums.ERole;
 
 /**
@@ -37,18 +38,18 @@ import ua.org.instazoo.entity.enums.ERole;
  */
 @Data
 @Entity
-public class User {
+public class User implements UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @Column(nullable=false)
+  @Column(nullable = false)
   private String name;
   @Column(unique = true, updatable = true)
   private String username;
-  @Column(nullable=false)
+  @Column(nullable = false)
   private String lastname;
-  @Column(nullable=false)
+  @Column(nullable = false)
   private String email;
   @Column(columnDefinition = "text")
   private String bio;
@@ -57,7 +58,7 @@ public class User {
 
   @ElementCollection(targetClass = ERole.class)
   @CollectionTable(name = "user_role",
-  joinColumns = @JoinColumn(name = "user_id"))
+      joinColumns = @JoinColumn(name = "user_id"))
   private Set<ERole> roles = new HashSet<>();
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
@@ -73,9 +74,49 @@ public class User {
   public User() {
   }
 
+  public User(Long id,
+      String username,
+      String email,
+      String password,
+      Collection<? extends GrantedAuthority> authorities) {
+    this.id = id;
+    this.username = username;
+    this.email = email;
+    this.password = password;
+    this.authorities = authorities;
+  }
+
   @PrePersist
-  protected void onCreate(){
+  protected void onCreate() {
     this.createDate = LocalDateTime.now();
   }
 
+  @Override
+  public boolean isAccountNonExpired() {
+    return false;
+  }
+
+  /**
+   * SECURITY
+   */
+
+  @Override
+  public String getPassword() {
+    return password;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return false;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return false;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return false;
+  }
 }
