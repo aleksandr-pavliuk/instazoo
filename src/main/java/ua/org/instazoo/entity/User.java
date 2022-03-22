@@ -91,11 +91,6 @@ public class User implements UserDetails {
     this.createDate = LocalDateTime.now();
   }
 
-  @Override
-  public boolean isAccountNonExpired() {
-    return false;
-  }
-
   /**
    * SECURITY
    */
@@ -103,6 +98,11 @@ public class User implements UserDetails {
   @Override
   public String getPassword() {
     return password;
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return false;
   }
 
   @Override
