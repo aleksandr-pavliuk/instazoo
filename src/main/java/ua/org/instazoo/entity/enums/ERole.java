@@ -2,7 +2,7 @@ package ua.org.instazoo.entity.enums;
 
 /**
  * @author Alex
- * @link http://healthfood.net.ua
+ * @link https://intvw.me
  */
 public enum ERole {
   ROLE_USER,

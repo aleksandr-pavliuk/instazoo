@@ -22,7 +22,7 @@ import ua.org.instazoo.entity.enums.ERole;
 
 /**
  * @author Alex
- * @link http://healthfood.net.ua
+ * @link https://intvw.me
  */
 @Data
 @Entity

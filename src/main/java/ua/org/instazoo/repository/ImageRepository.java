@@ -7,7 +7,7 @@ import ua.org.instazoo.entity.ImageModel;
 
 /**
  * @author Alex
- * @link http://healthfood.net.ua
+ * @link https://intvw.me
  */
 @Repository
 public interface ImageRepository extends JpaRepository<ImageModel, Long> {

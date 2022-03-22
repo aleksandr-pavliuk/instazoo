@@ -14,7 +14,7 @@ import lombok.Data;
 
 /**
  * @author Alex
- * @link http://healthfood.net.ua
+ * @link https://intvw.me
  */
 @Data
 @Entity

@@ -8,7 +8,7 @@ import ua.org.instazoo.entity.Post;
 
 /**
  * @author Alex
- * @link http://healthfood.net.ua
+ * @link https://intvw.me
  */
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {

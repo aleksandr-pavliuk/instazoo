@@ -18,7 +18,7 @@ import ua.org.instazoo.entity.User;
 
 /**
  * @author Alex
- * @link http://healthfood.net.ua
+ * @link https://intvw.me
  */
 @Component
 public class JWTTokenProvider {

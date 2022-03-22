@@ -14,7 +14,7 @@ import ua.org.instazoo.repository.UserRepository;
 
 /**
  * @author Alex
- * @link http://healthfood.net.ua
+ * @link https://intvw.me
  */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {

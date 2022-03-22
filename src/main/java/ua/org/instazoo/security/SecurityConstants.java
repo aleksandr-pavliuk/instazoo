@@ -2,7 +2,7 @@ package ua.org.instazoo.security;
 
 /**
  * @author Alex
- * @link http://healthfood.net.ua
+ * @link https://intvw.me
  */
 public class SecurityConstants {
 
