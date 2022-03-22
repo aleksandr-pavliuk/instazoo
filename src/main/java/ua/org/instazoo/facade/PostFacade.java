@@ -1,5 +1,6 @@
 package ua.org.instazoo.facade;
 
+import org.springframework.stereotype.Component;
 import ua.org.instazoo.dto.PostDTO;
 import ua.org.instazoo.entity.Post;
 
@@ -7,6 +8,7 @@ import ua.org.instazoo.entity.Post;
  * @author Alex
  * @link https://intvw.me
  */
+@Component
 public class PostFacade {
 
   public PostDTO postToPostDTO(Post post) {

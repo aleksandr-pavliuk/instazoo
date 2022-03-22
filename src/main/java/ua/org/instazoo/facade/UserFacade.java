@@ -1,5 +1,6 @@
 package ua.org.instazoo.facade;
 
+import org.springframework.stereotype.Component;
 import ua.org.instazoo.dto.UserDTO;
 import ua.org.instazoo.entity.User;
 
@@ -7,6 +8,7 @@ import ua.org.instazoo.entity.User;
  * @author Alex
  * @link https://intvw.me
  */
+@Component
 public class UserFacade {
 
   public UserDTO userToUserDTO(User user) {
