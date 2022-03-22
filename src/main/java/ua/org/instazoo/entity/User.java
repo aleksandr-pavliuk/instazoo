@@ -45,11 +45,11 @@ public class User implements UserDetails {
   private Long id;
   @Column(nullable = false)
   private String name;
-  @Column(unique = true, updatable = true)
+  @Column(unique = true, updatable = false)
   private String username;
   @Column(nullable = false)
   private String lastname;
-  @Column(nullable = false)
+  @Column(unique = true)
   private String email;
   @Column(columnDefinition = "text")
   private String bio;
@@ -64,9 +64,9 @@ public class User implements UserDetails {
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
   private List<Post> posts = new ArrayList<>();
 
-  @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
-  @Column(updatable = false)
-  private LocalDateTime createDate;
+    @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
+    @Column(updatable = false)
+    private LocalDateTime createdDate;
 
   @Transient
   private Collection<? extends GrantedAuthority> authorities;
@@ -86,9 +86,35 @@ public class User implements UserDetails {
     this.authorities = authorities;
   }
 
-  @PrePersist
-  protected void onCreate() {
-    this.createDate = LocalDateTime.now();
+    @PrePersist
+    protected void onCreate() {
+        this.createdDate = LocalDateTime.now();
+    }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    User user = (User) o;
+
+    return id != null ? id.equals(user.id) : user.id == null;
+  }
+
+  @Override
+  public String toString() {
+    return "User{" +
+        "id=" + id +
+        '}';
+  }
+
+  @Override
+  public int hashCode() {
+    return id != null ? id.hashCode() : 0;
   }
 
   /**
