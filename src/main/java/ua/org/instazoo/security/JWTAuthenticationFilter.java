@@ -22,7 +22,6 @@ import ua.org.instazoo.service.CustomUserDetailsService;
  * @author Alex
  * @link https://intvw.me
  */
-@Component
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
   public static final Logger LOG = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
