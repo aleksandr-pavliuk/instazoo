@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import ua.org.instazoo.entity.User;
@@ -21,6 +22,7 @@ import ua.org.instazoo.service.CustomUserDetailsService;
  * @author Alex
  * @link https://intvw.me
  */
+@Component
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
   public static final Logger LOG = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
