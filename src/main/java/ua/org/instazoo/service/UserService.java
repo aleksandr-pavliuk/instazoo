@@ -63,6 +63,9 @@ public class UserService {
     return userRepository.save(user);
   }
 
+  public User getCurrentUser(Principal principal) {
+    return getUserByPrincipal(principal);
+  }
 
   private User getUserByPrincipal(Principal principal) {
     String username = principal.getName();
@@ -71,5 +74,8 @@ public class UserService {
 
   }
 
+  public User getUserById(Long id) {
+    return userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+  }
 
 }
