@@ -1,7 +1,9 @@
 package ua.org.instazoo.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
@@ -13,6 +15,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.header.writers.StaticHeadersWriter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import ua.org.instazoo.service.CustomUserDetailsService;
 
 /**
@@ -35,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
+
     http.cors().and().csrf().disable()
         .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
         .sessionManagement()
@@ -44,6 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(SecurityConstants.SIGN_UP_URLS).permitAll()
         .anyRequest().authenticated();
     http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+    http.headers().addHeaderWriter(
+        new StaticHeadersWriter("Access-Control-Allow-Origin", "*"));
   }
 
   @Override
@@ -51,9 +59,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     auth.userDetailsService(customUserDetailsService).passwordEncoder(bCryptPasswordEncoder());
   }
 
+  @Bean
+  public WebMvcConfigurer corsConfigurer() {
+    return new WebMvcConfigurer() {
+      @Override
+      public void addCorsMappings(CorsRegistry registry) {
+        registry.
+            addMapping("/**"). // для всех URL
+            allowedOrigins(
+            "http://localhost:51683"). // с каких адресов разрешать запросы (можно указывать через запятую)
+            allowCredentials(true). // разрешить отправлять куки для межсайтового запроса
+            allowedHeaders(
+            "*"). // разрешить все заголовки - без этой настройки в некоторых браузерах может не работать
+            allowedMethods(
+            "*"); // все методы разрешены (GET,POST и пр.) - без этой настройки CORS не будет работать!
+      }
+    };
+  }
+
+
   @Override
   @Bean(BeanIds.AUTHENTICATION_MANAGER)
-  protected AuthenticationManager authenticationManager()throws Exception{
+  protected AuthenticationManager authenticationManager() throws Exception {
     return super.authenticationManager();
   }
 

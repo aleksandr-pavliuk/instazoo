@@ -24,9 +24,9 @@ import ua.org.instazoo.validations.ResponseErrorValidation;
  * @author Alex
  * @link https://intvw.me
  */
+@CrossOrigin
 @RestController
 @RequestMapping("api/user")
-@CrossOrigin
 public class UserController {
 
   @Autowired
